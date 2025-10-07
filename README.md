@@ -41,3 +41,8 @@ message:
 **LLD**:
 - Framework & Language : SpringBoot& Java
 - Database : MongoDB (scalability)
+
+**Health Check**
+http://localhost:8080/actuator
+**Swagger**
+http://localhost:8080/swagger-ui/index.html
