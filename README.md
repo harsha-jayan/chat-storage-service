@@ -14,18 +14,30 @@ User session -> 1 st message (1 session, 1 msg)
 **Database** :
 
 chat_session :
-session_id, sender_name, mail_id, is_favourite(default=false), delete (default=false) , created_timestamp, updated_timestamp
+
+- session_id
+- sender_name
+- mail_id
+- is_favourite(default=false),
+- delete (default=false) ,
+- created_timestamp,
+- updated_timestamp
 
 message:
-message_id, message,  session_id, sender_name, delete (default=false)
+
+- message_id
+- message
+- session_id
+- sender_name
+- delete (default=false)
 
 **APIs** :
 
-POST create sessions,
-POST add messages,
-GET retrieve messages,
-UPDATE manage sessions (rename of session)
+- POST create sessions
+- POST add messages
+- GET retrieve messages
+- UPDATE manage sessions (rename of session)
 
 **LLD**:
-Framework & Language : SpringBoot& Java
-Database : MongoDB (scalability)
+- Framework & Language : SpringBoot& Java
+- Database : MongoDB (scalability)
