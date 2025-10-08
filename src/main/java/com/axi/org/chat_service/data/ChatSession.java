@@ -24,7 +24,6 @@ public class ChatSession {
     private String title;
 
     private boolean favorite;
-    private Boolean delete;
 
     private Instant createdAt;
     private Instant updatedAt;

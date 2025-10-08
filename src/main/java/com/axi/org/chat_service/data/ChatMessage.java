@@ -23,9 +23,7 @@ public class ChatMessage {
 
     private String sender;
     private String content;
-
     private String context;
-    private Boolean delete;
 
     private Instant createdAt;
 }
