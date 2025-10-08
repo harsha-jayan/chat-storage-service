@@ -20,12 +20,6 @@ public class SessionController {
     public SessionController(SessionService sessionService) {
         this.sessionService = sessionService;
     }
-
-    @GetMapping
-    public String sayHello() {
-        return "Hello from Chat Storage Service!!";
-    }
-
     @PostMapping
     public ResponseEntity<ChatSession> createSession(@RequestBody CreateSessionRequest req){
 
@@ -44,7 +38,7 @@ public class SessionController {
     }
 
     @PatchMapping("/{id}/rename")
-    public ResponseEntity<ChatSession> renameSession(@PathVariable("id") String id, @RequestBody @Valid RenameSessionRequest req){
+    public ResponseEntity<ChatSession> renameSession(@PathVariable("id") String id, @Valid @RequestBody RenameSessionRequest req){
 
         ChatSession s = sessionService.renameSession(id, req.getTitle());
         return ResponseEntity.status(HttpStatus.OK).body(s);
