@@ -5,6 +5,7 @@ import com.axi.org.chat_service.delegators.SessionService;
 import com.axi.org.chat_service.dto.CreateSessionRequest;
 import com.axi.org.chat_service.dto.CreateSessionResponse;
 import com.axi.org.chat_service.dto.RenameSessionRequest;
+import com.axi.org.chat_service.exception.ResourceNotFoundException;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,10 @@ public class SessionController {
     }
 
     @PatchMapping("/{id}/favorite")
-    public ResponseEntity<ChatSession> markFavorite(@PathVariable("id") String id){
+    public ResponseEntity<ChatSession> markFavorite(@PathVariable("id") String id) {
 
         ChatSession s = sessionService.setFavorite(id, true);
         return ResponseEntity.status(HttpStatus.OK).body(s);
-
     }
 
     @PatchMapping("/{id}/rename")

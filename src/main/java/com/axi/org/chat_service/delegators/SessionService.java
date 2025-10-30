@@ -2,14 +2,17 @@ package com.axi.org.chat_service.delegators;
 
 import com.axi.org.chat_service.data.ChatSession;
 import com.axi.org.chat_service.dto.CreateSessionResponse;
+import com.axi.org.chat_service.exception.ResourceNotFoundException;
 import com.axi.org.chat_service.repository.ChatMessageRepository;
 import com.axi.org.chat_service.repository.ChatSessionRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class SessionService {
 
     private final ChatSessionRepository sessionRepository;
@@ -33,8 +36,10 @@ public class SessionService {
 
         ChatSession saved = sessionRepository.save(session);
 
+        log.info("Session created with id {}", saved.getId());
+
         return CreateSessionResponse.builder()
-                .userId(saved.getId())
+                .userId(saved.getUserId())
                 .title(saved.getTitle())
                 .build();
 
@@ -44,10 +49,10 @@ public class SessionService {
         return sessionRepository.findById(sessionId);
     }
 
-    public ChatSession setFavorite(String sessionId, boolean favorite) {
+    public ChatSession setFavorite(String sessionId, boolean favorite) throws ResourceNotFoundException{
 
         ChatSession s = sessionRepository.findById(sessionId)
-                .orElseThrow(() -> new IllegalArgumentException("session not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("session not found"));
 
         s.setFavorite(favorite);
         s.setUpdatedAt(Instant.now());
@@ -57,7 +62,7 @@ public class SessionService {
 
     public ChatSession renameSession(String sessionId, String title) {
         ChatSession s = sessionRepository.findById(sessionId)
-                .orElseThrow(() -> new IllegalArgumentException("session not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("session not found"));
 
         s.setTitle(title);
         s.setUpdatedAt(Instant.now());
