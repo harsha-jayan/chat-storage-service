@@ -7,6 +7,7 @@
 # IDE-specific files (e.g., Eclipse, IntelliJ IDEA, VS Code)
 .classpath
 .project
+.idea
 .settings/
 *.iml
 *.iws
