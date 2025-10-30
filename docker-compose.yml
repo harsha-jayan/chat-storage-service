@@ -10,16 +10,16 @@ services:
     ports:
       - "27017:27017"
 
-  app:
+  springboot-app:
     build: .
+    container_name: chat-storage-service_app
+    ports:
+      - "8081:8081"
     depends_on:
       - mongo
     environment:
-      - MONGO_URI=mongodb://mongo:27017/chatstore
-      - SPRING_DATA_MONGODB_HOST=mongo
-    ports:
-      - "8080:8080"
-    restart: unless-stopped
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/chatstore
+    restart: always
 
 volumes:
   mongo-data:

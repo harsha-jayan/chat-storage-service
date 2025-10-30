@@ -1,6 +1,7 @@
 package com.axi.org.chat_service.delegators;
 
 import com.axi.org.chat_service.data.ChatSession;
+import com.axi.org.chat_service.dto.CreateSessionResponse;
 import com.axi.org.chat_service.repository.ChatMessageRepository;
 import com.axi.org.chat_service.repository.ChatSessionRepository;
 import org.springframework.stereotype.Service;
@@ -19,15 +20,23 @@ public class SessionService {
         this.messageRepository = messageRepository;
     }
 
-    public ChatSession createSession(String userId, String title){
+    public CreateSessionResponse createSession(String userId, String title){
+
+        title = (title == null || title.isBlank()) ? "New chat" : title;
         ChatSession session = ChatSession.builder()
                 .userId(userId)
-                .title((title == null || title.isBlank()) ? "New chat" : title)
+                .title(title)
                 .createdAt(Instant.now())
                 .updatedAt(Instant.now())
                 .favorite(false)
                 .build();
-        return sessionRepository.save(session);
+
+        ChatSession saved = sessionRepository.save(session);
+
+        return CreateSessionResponse.builder()
+                .userId(saved.getId())
+                .title(saved.getTitle())
+                .build();
 
     }
 

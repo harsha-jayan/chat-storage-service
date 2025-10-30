@@ -3,6 +3,7 @@ package com.axi.org.chat_service.controller;
 import com.axi.org.chat_service.data.ChatSession;
 import com.axi.org.chat_service.delegators.SessionService;
 import com.axi.org.chat_service.dto.CreateSessionRequest;
+import com.axi.org.chat_service.dto.CreateSessionResponse;
 import com.axi.org.chat_service.dto.RenameSessionRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,9 @@ public class SessionController {
         this.sessionService = sessionService;
     }
     @PostMapping
-    public ResponseEntity<ChatSession> createSession(@RequestBody CreateSessionRequest req){
+    public ResponseEntity<CreateSessionResponse> createSession(@RequestBody CreateSessionRequest req){
 
-        ChatSession s = sessionService.createSession(req.getUserId(), req.getTitle());
+        CreateSessionResponse s = sessionService.createSession(req.getUserId(), req.getTitle());
         //Improvement : Do Not pass the entire data here, create a builder and send ResponseDto
         return ResponseEntity.status(HttpStatus.CREATED).body(s);
 
@@ -45,7 +46,7 @@ public class SessionController {
 
     }
 
-    @PatchMapping("{id}/delete")
+    @DeleteMapping("{id}/delete")
     public ResponseEntity<String> delete(@PathVariable("id") String id){
         sessionService.delete(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Deleted Successfully");

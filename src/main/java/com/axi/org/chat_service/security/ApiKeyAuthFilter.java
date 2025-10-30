@@ -18,7 +18,7 @@ public class ApiKeyAuthFilter extends OncePerRequestFilter {
     private String configuredApiKey;
 
     private static final String API_KEY_HEADER = "X-API-KEY";
-    private static final String PROTECTED_PATH_PREFIX = "/api/";
+    private static final String PROTECTED_PATH_PREFIX = "/api/v2";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
