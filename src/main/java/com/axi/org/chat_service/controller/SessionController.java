@@ -6,11 +6,13 @@ import com.axi.org.chat_service.dto.CreateSessionRequest;
 import com.axi.org.chat_service.dto.CreateSessionResponse;
 import com.axi.org.chat_service.dto.RenameSessionRequest;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/sessions")
 public class SessionController {
@@ -23,7 +25,7 @@ public class SessionController {
     }
     @PostMapping
     public ResponseEntity<CreateSessionResponse> createSession(@RequestBody CreateSessionRequest req){
-
+        log.info("Create Session request received :::");
         CreateSessionResponse s = sessionService.createSession(req.getUserId(), req.getTitle());
         //Improvement : Do Not pass the entire data here, create a builder and send ResponseDto
         return ResponseEntity.status(HttpStatus.CREATED).body(s);
